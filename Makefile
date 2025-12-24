@@ -1,6 +1,6 @@
 BINDIR ?= /usr/local/bin
 LIBDIR ?= /usr/local/lib/metaexplorer
-LIBHELPERDIR ?= /usr/local/lib/metaexplorer/helpers
+LIBHELPERDIR ?= $(LIBDIR)/helpers
 
 SCRIPTS := mexplore
 LIBSCRIPTS := lib/broken_symlink_info.sh lib/file_info.sh lib/folder_info.sh lib/symlink_info.sh
