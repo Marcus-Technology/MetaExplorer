@@ -137,3 +137,41 @@ mexplore testfile --no-hashes
 # With -n
 mexplore testfile -n
 ```
+
+## Running MetaExplorer Without Installing
+
+You can run MetaExplorer directly from its folder without installing it. The usage syntax is the same, but you’ll need to run the command using `./mexplore` from within the script’s directory, or `<directory>/mexplore` if you’re calling it from elsewhere.
+
+## Configuring the MetaExplorer Installation
+
+### Main Script Location
+To change where the mexplore executable is installed:
+
+Open the [Makefile](https://github.com/Marcus-Technology/MetaExplorer/blob/main/Makefile).
+
+Find the line `BINDIR ?= /usr/local/bin`.
+
+Replace `/usr/local/bin` with the directory where you want the main script installed.
+
+### Library Files Location
+
+To change where the library files are installed:
+
+- In the [Makefile](https://github.com/Marcus-Technology/MetaExplorer/blob/main/Makefile), locate the line `LIBDIR ?= /usr/local/lib/metaexplorer`.
+
+- Replace `/usr/local/lib` (note: not including `/metaexplorer`) with the directory where you want the library files stored.
+
+Next, update the runtime path inside the [mexplore](https://github.com/Marcus-Technology/MetaExplorer/blob/main/mexplore) script:
+
+- Open the mexplore script and find the variable `librarydir="/usr/local/lib/metaexplorer"` (around line 44).
+
+- Replace `/usr/local/lib` (again, excluding `/metaexplorer`) with the same directory you chose for the library installation.
+
+## License
+
+MetaExplorer is licensed under the [GNU General Public License v3.0](https://github.com/Marcus-Technology/MetaExplorer/blob/main/LICENSE).  
+You may use, modify, and distribute this software in accordance with the terms of the GPL-3.0 license.
+
+---
+
+© 2025 MarcTek
