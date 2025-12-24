@@ -1,0 +1,129 @@
+#!/usr/bin/env bash
+
+# Version number of MetaExplorer.
+version="1.0.0"
+
+# Outputs help on MetaExplorer.
+show_help() {
+    echo
+    printf "\e[32m=== Usage ===\e[0m\n"
+    echo "mexplore <file> [flags]      #   Explore the metadata of a file, folder, or symlink. Flags are optional."
+    echo "mexplore [--help OR -h]      #   Get help on commands and flags for MetaExplorer."
+    echo "mexplore [--version OR -v]   #   Outputs your MetaExplorer version and credits."
+    echo
+
+    printf "\e[32m=== Flags ===\e[0m\n"
+    echo "--no-hashes OR -h            #   Disables creating file hashes."
+    echo
+}
+
+# Outputs the version and credits on MetaExplorer.
+show_version() {
+    echo
+    echo "MetaExplorer Version $version"
+    echo "Copyright (C) 2025 MarcTek"
+    echo
+}
+
+# Checks if the user wants to see the help or version of MetaExplorer.
+case "$1" in
+    --help|-h)
+        show_help
+        exit 0
+        ;;
+    --version|-v)
+        show_version
+        exit 0
+        ;;
+esac
+
+# Set needed variables
+path="$1"
+# Change this if you installed the library files in a different directory.
+# By default this is set to "/usr/local/lib/metaexplorer".
+librarydir="/usr/local/lib/metaexplorer"
+shift
+absolute_path=""
+symlink_path=""
+no_hashes=false
+
+# Gets the directory the script is currently working in.
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Exports varaibles for the library scripts to access.
+export no_hashes
+
+# Sources 'file_info.sh'.
+if [ -e "$script_dir/lib/file_info.sh" ]; then
+    source "$script_dir/lib/file_info.sh"
+elif [ -e "$librarydir/file_info.sh" ]; then
+    source "$librarydir/file_info.sh"
+fi
+
+# Sources 'broken_symlink_info.sh'.
+if [ -e "$script_dir/lib/broken_symlink_info.sh" ]; then
+    source "$script_dir/lib/broken_symlink_info.sh"
+elif [ -e "$librarydir/broken_symlink_info.sh" ]; then
+    source "$librarydir/broken_symlink_info.sh"
+fi
+
+# Sources 'symlink_info.sh'.
+if [ -e "$script_dir/lib/symlink_info.sh" ]; then
+    source "$script_dir/lib/symlink_info.sh"
+elif [ -e "$librarydir/symlink_info.sh" ]; then
+    source "$librarydir/symlink_info.sh"
+fi
+
+# Sources 'folder_info.sh'.
+if [ -e "$script_dir/lib/folder_info.sh" ]; then
+    source "$script_dir/lib/folder_info.sh"
+elif [ -e "$librarydir/folder_info.sh" ]; then
+    source "$librarydir/folder_info.sh"
+fi
+
+# Checks if any flags where used.
+while [[ $# -gt 0 ]]; do
+    case "$1" in
+        --no-hashes|-n)
+            no_hashes=true
+            ;;
+        *)
+            printf "\e[31mERROR: The flag '$1' does not exist.\e[0m\n"
+            printf "\e[31mExited with exit code 1.\e[0m\n"
+            exit 1
+            ;;
+    esac
+    shift
+done
+
+# Tests if absolute_path is a valid symlink, broken symlink, folder, or file. If not, an error is printed.
+# It tests the path in this order for a reason. If the order were to be rearanged, it will get very buggy.
+if [ -L "$path" ] && [ -e "$path" ]; then
+    # $path is a symlink.
+    symlink_path="$(cd "$(dirname "$path")" && pwd -P)/$(basename "$path")"
+    export symlink_path
+    get_symlink_info
+    exit 0
+elif [ -L "$path" ] && [ ! -e "$path" ]; then
+    # $path is a broken symlink.
+    symlink_path="$(cd "$(dirname "$path")" && pwd -P)/$(basename "$path")"
+    export symlink_path
+    get_broken_symlink_info
+    exit 0
+elif [[ -d "$path" ]]; then
+    # $path is a folder.
+    absolute_path=$(realpath "$path")
+    export absolute_path
+    get_folder_info
+    exit 0
+elif [[ -e "$path" ]]; then
+    # $path is a file.
+    absolute_path=$(realpath "$path")
+    export absolute_path
+    get_file_info
+    exit 0
+else
+    printf "\e[31mERROR: The path '$path' does not exist.\e[0m\n"
+    printf "\e[31mExited with exit code 1.\e[0m\n"
+    exit 1
+fi
