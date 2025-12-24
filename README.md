@@ -101,7 +101,7 @@ To run MetaExplorer, use the following syntax:
 mexplore <file> [flags]
 ```
 
-`mexplore` is the main command, `<file>` any target you want to inspect (file, directory, or symlink), and `[flags]` is where you put optional flags that modify the command’s behavior.
+`mexplore` is the main command, `<file>` any target you want to inspect (file, directory, or symlink), and `[flags]` is where you put the optional flags that modify the command’s behavior.
 
 You can also use:
 
@@ -126,7 +126,7 @@ mexplore examplelink
 
 ### MetaExplorer Flags
 
-Right now, MetaExplorer has only one flag, and that is `--no-hashes` or `-n`. You would use it only if you don't want the file hashes generated.
+MetaExplorer currently supports a single flag: `--no-hashes` (or `-n`). This flag disables hash generation for the specified file.
 
 #### Example Usage:
 
