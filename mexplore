@@ -21,7 +21,7 @@ show_help() {
 show_version() {
     echo
     echo "MetaExplorer Version $version"
-    echo "Copyright (C) 2025 Marcus' Technology (MarcTek)"
+    echo "Copyright (C) 2025-2026 Marcus' Technology (MarcTek)"
     echo
 }
 
