@@ -178,4 +178,4 @@ You may use, modify, and distribute this software in accordance with the terms o
 
 ---
 
-© 2025 MarcTek
+© 2025-2026 MarcTek
