@@ -167,6 +167,10 @@ Next, update the runtime path inside the [mexplore](https://github.com/Marcus-Te
 
 - Replace `/usr/local/lib` (again, excluding `/metaexplorer`) with the same directory you chose for the library installation.
 
+## Changelog
+
+You can view the MetaExplorer changelog in the [CHANGELOG.md](https://github.com/Marcus-Technology/MetaExplorer/blob/main/CHANGELOG.md) file.
+
 ## License
 
 MetaExplorer is licensed under the [GNU General Public License v3.0](https://github.com/Marcus-Technology/MetaExplorer/blob/main/LICENSE).  
