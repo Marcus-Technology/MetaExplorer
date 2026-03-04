@@ -13,7 +13,7 @@ show_help() {
     echo
 
     printf "\e[32m=== Flags ===\e[0m\n"
-    echo "--no-hashes OR -h            #   Disables creating file hashes."
+    echo "--no-hashes OR -n            #   Disables creating file hashes."
     echo
 }
 
