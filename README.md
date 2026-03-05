@@ -145,7 +145,7 @@ You can run MetaExplorer directly from its folder without installing it. The usa
 ## Configuring the MetaExplorer Installation
 
 ### Main Script Location
-To change where the mexplore executable is installed:
+To change where the `mexplore` script is installed:
 
 Open the [Makefile](https://github.com/Marcus-Technology/MetaExplorer/blob/main/Makefile).
 
